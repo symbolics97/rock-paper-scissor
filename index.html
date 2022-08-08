@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock-Paper-Scissors</title>
+</head>
+<body>
+    <script>
+        function getComputerChoice(){
+            let int = Math.floor(Math.random()*3) + 1;
+            let choice;
+            if(int === 1){
+                return 'Rock';
+            } else if(int === 2){
+                return 'Paper';
+            } else{
+                return 'Scissors';
+            }
+        }
+
+        function game(playerSelection,computerSelection){
+            let player = playerSelection.toLowerCase();
+            let computer = computerSelection.toLowerCase();
+            let tie_first = player.slice(0,1);
+            tie_first = tie_first.toUpperCase();
+            let tie_others = player.slice(1);
+            let tie = tie_first+tie_others;
+            
+            if(player === computer){
+                return `It\'s a tie!`;
+            } else if(player === 'rock' && computer === 'scissors'){
+                return 'You Win!';
+            } else if(player === 'paper' && computer === 'rock'){
+                return 'You Win!';
+            } else if(player === 'scissors' && computer === 'paper'){
+                return 'You Win!';
+            } else if(player === 'rock' && computer === 'paper'){
+                return 'You Lose!';
+            } else if(player === 'paper' && computer === 'scissors'){
+                return 'You Lose!';
+            } else if(player === 'scissors' && computer === 'rock'){
+                return 'You Lose!';
+            } else{
+                return 'Invalid input. Please try again!';
+            }
+        }
+        
+        function play5Rounds(){
+            let user_wins = 0;
+            let comp_wins = 0;
+            let ties = 0;
+
+            for (let i = 0; i<5;i++){
+                let user = prompt("What will your weapon be? Choose wisely:");
+                user = user.toLowerCase();
+                while (user !== 'rock' && user !== 'paper' && user !== 'scissors'){
+                    user = prompt("Invalid input. Please choose a valid input:");
+                    user = user.toLowerCase();
+                }
+
+                let user_first = user.slice(0,1);
+                user_first = user_first.toUpperCase();
+                let user_others = user.slice(1);
+                user = user_first + user_others;
+
+                let comp = getComputerChoice();
+
+                console.log(`Game ${i + 1}:`)
+                console.log(`User: ${user} \t Computer: ${comp}`)
+                console.log(game(user,comp))
+                if(game(user,comp) === 'You Win!'){
+                    user_wins += 1;
+                } else if(game(user,comp)==='You Lose!'){
+                    comp_wins += 1;
+                } else{
+                    ties += 1;
+                }
+            }
+            
+            console.log(`Match History:`);
+            console.log(`Your Wins: ${user_wins}`)
+            console.log(`Computer Wins: ${comp_wins}`)
+            console.log(`Ties: ${ties}`);
+        }
+    </script>
+</body>
+</html>
